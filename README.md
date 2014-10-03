@@ -4,6 +4,12 @@ Student work for [General Assembly's Data Science course](https://generalassemb.
 
 View course materials in the [main course repository](https://github.com/justmarkham/DAT3).
 
+#### Guidelines for contributing
+
+ * Use valid Markdown in your Markdown files
+ * When naming files, never use spaces and generally avoid capital letters
+ * Don't add large files unless absolutely necessary (e.g., resize your images to a reasonable size)
+
 #### Initial setup
 
  1. Fork the [primary DAT3-students repo](https://github.com/justmarkham/DAT3-students) on GitHub
