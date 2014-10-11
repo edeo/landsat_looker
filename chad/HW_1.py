@@ -16,14 +16,13 @@
 # Ex: my_calc(3,5) returns 8
 # Ex: my_calc(1, 2, "something") returns error message
 
-def my_calc(x,y, m="add"):
-    if m == "add":
+def my_calc(x,y, op="add"):
+    if op == "add":
         ans = x + y
-    elif m == "multiply":
+    elif op == "multiply":
         ans = x * y
     else:
-        ans = m + " is not a valid method"
-    
+        ans = op + " is not a valid method"
     return ans
 
 # EXERCISE #2
@@ -35,24 +34,24 @@ def my_calc(x,y, m="add"):
 # Bonus: Remove all duplicate values (adjacent or not)
 # Ex: [1, 2, 2, 3, 2] returns [1, 2, 3]
 
-def my_uniq2(l, all=False):
+def my_uniq2(lst):
     newlist = []
-    for a in l:
-        if a not in newlist:
+    for word in lst:
+        if word not in newlist:
             newlist.append(a)
     return newlist
 
-def my_uniqlist(l, all=False):
+def my_uniqlist(lst, all=False):
     newlist = []
     if all:
-        newlist = my_uniq2(l)
+        newlist = my_uniq2(lst)
     else:
         i=0
-        while i < len(l) - 1:
-            if l[i] != l[i+1]:
-                newlist.append(l[i])
+        while i < len(lst) - 1:
+            if lst[i] != lst[i+1]:
+                newlist.append(lst[i])
             i += 1
-        newlist.append(l[-1])
+        newlist.append(lst[-1])
     return newlist
 
 # EXERCISE #3
@@ -72,26 +71,21 @@ if __name__ == "__main__":
     x = 4
     y = 3
     print my_calc(x,y)
-    for m in ["add","multiply","nada"]:
-        a = my_calc(x,y,m)
-        print a
+    for op in ["add","multiply","nada"]:
+        print my_calc(x,y,op)
 	
-	#Test Exercise 2:
-	print '=' * 10
+    #Test Exercise 2:
+    print '=' * 10
     blist = [0,0,5,5,5,1,2,4,4,5,6]
     print blist
     for booly in [True,False]:
         print my_uniqlist(blist, booly)
 	
-	#Test Exercise 3:
-	print '=' * 10
+    #Test Exercise 3:
+    print '=' * 10
     quote = "Strange women lying in ponds is no basis for government"
-    print [l.capitalize() for l in quote.split() if len(l) > 3]
+    print [word.capitalize() for word in quote.split() if len(word) > 3]
 	
-	
-    #Test Exerccise 3 Bonus:
-    print [str.capitalize(l) if len(l) > 3 else l for l in quote.split()]	
-	
-	
-	
-	
+    #Test Exercise 3 Bonus:
+    print [str.capitalize(word) if len(word) > 3 else word for word in quote.split()]
+
