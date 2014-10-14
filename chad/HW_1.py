@@ -38,7 +38,7 @@ def my_uniq2(lst):
     newlist = []
     for word in lst:
         if word not in newlist:
-            newlist.append(a)
+            newlist.append(word)
     return newlist
 
 def my_uniqlist(lst, all=False):
@@ -88,4 +88,8 @@ if __name__ == "__main__":
 	
     #Test Exercise 3 Bonus:
     print [str.capitalize(word) if len(word) > 3 else word for word in quote.split()]
+
+
+    print [word.capitalize() if len(word) > 3 else word for word in quote.split()]
+
 
