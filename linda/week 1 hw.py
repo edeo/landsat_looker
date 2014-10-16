@@ -10,6 +10,8 @@ Created on Thu Oct  9 21:09:38 2014
 # So my_calc(1,2,"add") returns 3, and my_calc(4,5,"multiply) returns 20
 # If the operation is not specified, default to addition
 # If the operation is misspecified, return an error
+from __future__ import division 
+# to import the float function
 
 def my_calc(x, y, oper = 'add'):
     if oper=='subtract':
@@ -17,6 +19,7 @@ def my_calc(x, y, oper = 'add'):
     elif oper=='multiply':
         return x*y
     elif oper=='divide':
+        # return a/float(b)
         return x/y
     elif oper=='add':
         return x + y
@@ -36,7 +39,7 @@ numbers = [1,2,2,2] #[1,2]
 numbers = [1,2,2,3,2]
 numbers = [1,2,5,3,3,6,2,3,4,7,7,7,3]
 
-def unique(numList, exerType = 'default'):
+def uniqueExer(numList, exerType = 'default'):
     newList = [numList[0]]
     for i in range(1,len(numList)):
         if exerType == 'bonus':
@@ -50,7 +53,16 @@ def unique(numList, exerType = 'default'):
             if numList[i] != numList[i-1]:
                 newList.append(numList[i])
     return newList
+ 
+def unique(numList):
+    newList = []
+    for num in numList:
+        if num not in newList:
+            newList.append(num)
+    return newList
     
+def uniqueV2(numList):
+    return(list(set(numList)))
 
 # EXERCISE #3
 # Take a string, change it into a list and capitalize all words 
@@ -59,6 +71,7 @@ def unique(numList, exerType = 'default'):
 # Returns: ['Strange', 'Women', 'Lying', 'Ponds', 'Basis', 'Government'] 
 
 string = 'Strange women lying in ponds is no basis for government'
+[word.capitalize() for word in string.split() if len(word)>3]
 
 def cap(string, exerType = 'default'):
     string = string.split()
