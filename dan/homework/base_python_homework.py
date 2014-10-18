@@ -25,8 +25,8 @@ def my_calc(a, b, operation='add'):
     elif operation == 'divide':
         return a/b
     else:
-        print: 'please assign a valid operation- add, subtract, multiply, divide'
-
+        print: 'please assign a valid operation add, subtract, multiply, divide'
+    
 my_calc(4,5, 'multiply')
 my_calc(3,5)
 my_calc(1,2, 'something')
