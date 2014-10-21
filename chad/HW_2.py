@@ -22,14 +22,10 @@ path = '../../../DAT3_All/DAT3/data'
 import csv
 with open(path+'/drinks.csv', 'rU') as f:
     data = []
-    beers = []
-    n=0
     all = csv.DictReader(f)
+    header = all.fieldnames
     for f_csv in all:
         data.append(f_csv.values())
-        if n == 0:
-            header = f_csv.keys()
-            n += 1
     print header
     print data
 
