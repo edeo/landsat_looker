@@ -18,3 +18,9 @@ I will try and find yelp data for all the restaurants  that have been investigat
 I want to figure out if there is something significant in the yelp data or the dol data that is higher for violators than no violators.
 
 I know I have to create a data set from the yelp api. 
+
+
+whd dol
+yelp
+census
+manta
