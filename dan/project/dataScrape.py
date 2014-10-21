@@ -27,4 +27,9 @@ for hood in hoods:
     sleep(1)
 
 #Get avg price per neighborhood
-avg_price = stats['listingStats']['listingStat'][0]['listingPrice']['subcategory'][0]['averageListingPrice']
+avg_prices = []
+for stat in stats:
+    avg_price = [int(stats[stat]['listingStats']['listingStat'][0]['listingPrice']['subcategory'][0]['averageListingPrice'])]
+    avg_prices.append(avg_price)
+
+avg_price = [int(stats[0]['listingStats']['listingStat'][0]['listingPrice']['subcategory'][0]['averageListingPrice'])]
