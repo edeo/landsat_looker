@@ -8,21 +8,28 @@ Created on Mon Oct 20 17:36:03 2014
 import trulia.stats
 import trulia.location
 from pprint import pprint
+TRULIA_KEY = "cgns2cu3gfhh7zgv99jgyjj4"
 
-TRULIA_KEY = "TRULIA_API_KEY"
+# Get all neighborhoods names and IDs
+hood_requests = trulia.location.LocationInfo(TRULIA_KEY).get_neighborhoods_in_city("Washington", "DC")
 
-#Get all neighborhoods in DC
-neighborhoods = trulia.location.LocationInfo(TRULIA_KEY).get_neighborhoods_in_city("Washington", "DC")
+# Neighborhood_id in integers
+hoods = [int(hood_request['id']) for hood_request in hood_requests]
 
-pprint(neighborhoods)
+pprint(hoods)
 
-#Get neighborhood_id
-neighborhood_header = neighborhoods[0].keys()
-neighborhood_data = [neighborhood.values() for neighborhood in neighborhoods]
-neighborhood_id = [int(row[0]) for row in neighborhood_data]
-
-#Get neighborhood stats (1790 is Adams Morgan)
-neighborhood_stats = trulia.stats.TruliaStats(TRULIA_KEY).get_neighborhood_stats(neighborhood_id=1790, start_date="2014-01-01", end_date="2014-01-31")
+# Get neighborhood stats
+from time import sleep
+stats = []
+for hood in hoods:
+    stat = trulia.stats.TruliaStats(TRULIA_KEY).get_neighborhood_stats(neighborhood_id=[hood], start_date="2014-01-01", end_date="2014-01-31")
+    stats.append(stat)
+    sleep(1)
 
 #Get avg price per neighborhood
-avg_price = neighborhood_stats['listingStats']['listingStat'][0]['listingPrice']['subcategory'][0]['averageListingPrice']
+avg_prices = []
+for stat in stats:
+    avg_price = [int(stats[stat]['listingStats']['listingStat'][0]['listingPrice']['subcategory'][0]['averageListingPrice'])]
+    avg_prices.append(avg_price)
+
+avg_price = [int(stats[0]['listingStats']['listingStat'][0]['listingPrice']['subcategory'][0]['averageListingPrice'])]
