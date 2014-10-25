@@ -4,6 +4,10 @@
 
 ![Random Acts of Pizza](https://kaggle2.blob.core.windows.net/competitions/kaggle/3949/media/pizzas.png)
 
+Kaggle is hosting this competition for the machine learning community to use for fun and practice. This data was collected and graciously shared by Althoff et al. (Buy them a pizza -- data collection is a thankless and tedious job!) We encourage participants to explore their [accompanying paper](http://cs.stanford.edu/~althoff/raop-dataset/altruistic_requests_icwsm.pdf) and ask that you cite the following reference in any publications that result from your work:
+
+Tim Althoff, Cristian Danescu-Niculescu-Mizil, Dan Jurafsky. How to Ask for a Favor: A Case Study on the Success of Altruistic Requests, Proceedings of ICWSM, 2014.
+
 ## Data Files
 
 | File Name | Available Formats |
