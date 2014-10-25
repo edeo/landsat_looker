@@ -4,3 +4,9 @@
 
 ![Random Acts of Pizza](https://kaggle2.blob.core.windows.net/competitions/kaggle/3949/media/pizzas.png)
 
+## Data Files
+
+| File Name | Available Formats |
+| sampleSubmission.csv | [.zip (6.99 kb)](http://www.kaggle.com/c/random-acts-of-pizza/download/sampleSubmission.csv.zip) |
+| train.json | [.zip (1.70 mb)](http://www.kaggle.com/c/random-acts-of-pizza/download/train.json.zip) |
+| test.json | [.zip (564.50 kb)](http://www.kaggle.com/c/random-acts-of-pizza/download/test.json.zip) |
