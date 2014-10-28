@@ -47,3 +47,5 @@ hour['rush5'] = [1 if hour_it in [6,7,8,9,16,17,18] else 0 for hour_it in hour['
 """
 est_m = smf.ols(formula='cnt ~ temp + hum + workingday + hr + C(weathersit)', data=hours_dat).fit()
 est_m.summary()
+
+
