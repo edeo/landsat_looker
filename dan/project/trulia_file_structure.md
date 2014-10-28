@@ -7,7 +7,7 @@
          * subcategory
            * [0]
              * averageListingPrice
-              * medianlistingPrice
+              * medianListingPrice
               * numberOfProperties
               * type
        * weekEndingDate
