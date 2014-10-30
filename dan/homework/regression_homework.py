@@ -19,8 +19,23 @@ import statsmodels.api as sm
 import matplotlib.pyplot as plt
 import numpy as np
 
-bike_dat = pd.read_csv("../data/day.csv")
+hour = pd.read_csv("../data/hour.csv")
 
-est_s = smf.ols(formula='cnt ~ temp + hum + workingday + hour + C(weathersit)', data=bike_dat).fit()
+est = smf.ols(formula='cnt ~ temp + hum + workingday + hr + C(weathersit)', data=bike_dat).fit()
 
-rush_hour = 
+est.summary()
+
+pd.scatter_matrix(hour[['temp', 'hum', 'woorkingday', 'hr', 'weathersit']])
+
+hour['rush'] = 0
+hour['rush'][hour['hr'] == 6] = 1
+hour['rush'][hour['hr'] == 7] = 1
+hour['rush'][hour['hr'] == 8] = 1
+hour['rush'][hour['hr'] == 9] = 1
+
+hour['rush'][hour['hr'] == 16] = 1
+hour['rush'][hour['hr'] == 17] = 1
+hour['rush'][hour['hr'] == 18] = 1
+
+
+
