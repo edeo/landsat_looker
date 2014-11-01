@@ -9,15 +9,15 @@ Kaggle is hosting this competition for the machine learning community to use for
 Tim Althoff, Cristian Danescu-Niculescu-Mizil, Dan Jurafsky. How to Ask for a Favor: A Case Study on the Success of Altruistic Requests, Proceedings of ICWSM, 2014.
 
 ## Data Exploration and Analysis Plan
-*Read data into Pandas DataFrame
-*Run descriptive and exploratory analysis using Pandas methods
-*Create new features on textual data using Python's Natural Language Tool Kit (word count, lexicon diversity, sentiment)
-*Create new features on social factor data (counts & split-apply-combine methods)
-*Create new features on temporal data (splitting time-stamps into weekends, weekdays, nights, days, and holidays)
-*Generate box plots and scatter matrices to explore data further
-*Apply multiple classification algorithms against data
-*Apply cross-validation algorithm to identify best classification approach
-*Make predictions
+* Read data into Pandas DataFrame
+* Run descriptive and exploratory analysis using Pandas methods
+* Create new features on textual data using Python's Natural Language Tool Kit (word count, lexicon diversity, sentiment)
+* Create new features on social factor data (counts & split-apply-combine methods)
+* Create new features on temporal data (splitting time-stamps into weekends, weekdays, nights, days, and holidays)
+* Generate box plots and scatter matrices to explore data further
+* Apply multiple classification algorithms against data
+* Apply cross-validation algorithm to identify best classification approach
+* Make predictions
 
 ## Data Files
 
