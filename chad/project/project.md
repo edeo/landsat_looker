@@ -95,7 +95,7 @@ NOTE: where n goes from 0 to N  ==> N is the total number of data segments
 
 ## The Plan
 * Previously, the plan was to load 5 tables in a Postgres DB. Because of the sheer size of the data, that task is taking too much time. In order to do it quickly, csv files needed to be created anyhow, so only csv files will be created from the .mat files for now.
-* An ictal_ind flag has been added to each record where ictal_ind = 1 if record comes from preictal file else 0.
+* An ictal_ind flag has been added to each record where ictal_ind = 1 if record comes from a preictal file else 0.
 * A record represents one time interval for each of the 16 channels. There are 239766 time intervals.
 * The following three formats for the data will be used to determine which more accurately predicts whether the data comes from a preictal or interictal data set.
   * The raw measurements for each channel as they are.
