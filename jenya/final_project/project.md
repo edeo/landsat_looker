@@ -2,6 +2,10 @@ Name: Effectiveness of promotional campaign with the use of various value promo 
 
 Objective:
 	Analyse promo codes campaign and determine if the amount of promo code influences the user's ride volume.
+	Compare event_driven promo codes vs user_referred promo code programs.
+
+Desired_outcome:
+	User takes at least one extra ride after the promo_code ride.
 
 Background:
 	Company regularly performs marketing campaigns where a new user received a promo code valued at either $5, $10, or $20. There is currently no research done to show which of the amounts is most effective in attracting long-term users if at all
@@ -10,6 +14,8 @@ Definitions:
 	* New user: a user who has never had an account with the company before
 	* Promo-code ride: a ride that a user takes with the use of received promo code
 	* Frequent user: a new user who will take at least one more ride besides the initial "promo code ride"
+	* Event driven promocode: promo code that was distributed at a marketing event or media campaign rather than through user generated referral
+	* User referral promo_code: a promo code that is passed through an existing user. 
 
 Study groups:
       * User referral campaign: a promo code that is passed through an existing user. "Refer a friend. You get $15 and your friend gets $15 towards their first ride".
