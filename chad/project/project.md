@@ -112,6 +112,7 @@ NOTE: where n goes from 0 to N  ==> N is the total number of data segments
 * For Dog_1 there are 480 interictal files and 24 preictal files. About 5% of the files are preictal and 95% interictal. With that in mind, these are the different options available for CV:
    * Create a process that randomly selects 19 interictal files and 1 preictal file, and do this 5 or so different times, to determine the best model.
    * Use different ratios. 19:1, 10:2, 5:1,...etc.
+* Use similar process for all dogs and patients.
 
 
 
