@@ -93,15 +93,15 @@ NOTE: where n goes from 0 to N  ==> N is the total number of data segments
 2. Or will the data need to be transformed first?
 3. Some testing has been done on getting the difference (the absolute value difference) between each measurement in each channel and taking the average difference for each channel. I am trying to see if there is a pattern that differentiates an interictal file from a preictal file. A little difference has been noticed, but it has not been tested to see if it is statistically significant yet.
 
-## Plan
+## The Plan
 * Previously, the plan was to load 5 tables in a Postgres DB. Because of the sheer size of the data, that task is taking too much time. In order to do it quickly, csv files needed to be created anyhow, so only csv files will be created from the .mat files for now.
 * An ictal_ind flag has been added to each record where ictal_ind = 1 if record comes from preictal file else 0.
 * A record represents one time interval for each of the 16 channels. There are 239766 time intervals.
-* Classification algorithms will be trained using the following three formats for the data: 
+* The following three formats for the data will be used to determine which more accurately predicts whether the data comes from a preictal or interictal data set.
   * The raw measurements for each channel as they are.
   * The absolute value differences between each time interval measurement as they are. There are 239766 time interval measurement, so there will be 239765 difference measurements.
-  * The mean for difference measurements for each channel. This reduces the data considerable. Each file becomes just one record.
-* Classification Algorithms
+  * The mean for difference measurements for each channel. This reduces the data considerably. Each file becomes just one record.
+* Classification Algorithms (not all of these will be used in the final report)
   * Logistic Regression
   * Linear Regression Classification
   * Support Vector Machine (SVM)
