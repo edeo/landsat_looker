@@ -1,0 +1,9 @@
+promo_records:
+	value: int
+	new_user_id: int
+	gender: int
+	credit_card_user: bool
+	number_of_rides_to_date: int
+	location: string
+	date_redeemed: date
+
