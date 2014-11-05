@@ -18,7 +18,7 @@ df = pd.read_csv('data/Default.csv')
 df['student'] = np.where(df.student=='Yes', 1, 0)
 
 #creating test and training set
-sample_rows = random.sample(df1.index, 1000)
+sample_rows = random.sample(df.index, 1000)
 df_test = df.ix[sample_rows]
 df_train = df.drop(sample_rows)
 
