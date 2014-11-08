@@ -1,6 +1,8 @@
 import json
 from pprint import pprint
 import pandas as pd
+import datetime
+
 
 #reading in training data to pandas dataframe
 df = pd.read_json('data/train.json')
@@ -168,12 +170,28 @@ total_votes = df.requester_upvotes_plus_downvotes_at_request
 df['karma'] = upvotes/total_votes
     
 #features that represent subreddit reputation
-requester_days_since_first_post_on_raop_at_request
-requester_number_of_comments_in_raop_at_request
-requester_number_of_posts_on_raop_at_request
-#three types of flair to identify reciprocity (gotten pizza, given pizza, neither)
-requester_user_flair
+#dummy variable for whether it was the users first post to raop
+first_post = df.requester_days_since_first_post_on_raop_at_request
+df['first_post'] = [1 if i == 0 else 0 for i in first_post]
+
+#dummy variable for whether the user has commented before
+sub_comments = df.requester_number_of_comments_in_raop_at_request
+plt.hist(sub_comments, bins=2, range=(0,1))
+df['has_commented'] = [1 if i >= 1 else 0 for i in sub_comments]
+
+#continuous variable for number of posts
+sub_posts = df.requester_number_of_posts_on_raop_at_request
+plt.hist(sub_posts)
+
+#three types of flair to identify reciprocity (shroom=received, PIF=given after
+#received, and None=neither)
+flair = df.requester_user_flair
+df['no_flair'] = [1 if i == 'None' else 0 for i in flair]
+df['received'] = [1 if i == 'shroom' else 0 for i in flair]
+df['given_after_received'] = [1 if i == 'PIF' else 0 for i in flair]
 
 #identify weekends, weekdays, nights, days, and times near holidays
-unix_timestamp_of_request_utc
-
+timestamp_utc = df.unix_timestamp_of_request_utc
+day_time_str = [datetime.datetime.utcfromtimestamp(int(i)).strftime('%Y-%m-%d %H:%M:%S') for i in timestamp]
+day_of_week = [datetime.datetime.utcfromtimestamp(int(i)).weekday() for i in timestamp_utc]
+df['weekday'] = [1 if i < 5 else 0 for i in day_of_week]
