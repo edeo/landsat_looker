@@ -34,7 +34,7 @@ import re
 from nltk import word_tokenize
 
 #setting the first 5 rows equal to s and converting the Series to a list
-request_text = df.request_text_edit_aware[:5]
+request_text = df.request_text_edit_aware
 request_text_list = request_text.tolist()
 
 #tokenizing every request in request_list and saving them as a new list called tokenized_list
@@ -216,11 +216,15 @@ Topic Modeling
 import lda
 from gensim import corpora, models, similarities
 import numpy as np
+import stop_words
 
 documents = request_text_list
 
 # remove common words and tokenize
-stoplist = set('for a of the and to in'.split())
+stopwords = stop_words.get_stop_words("english")
+new_words = 'get last will right get can like really just got back make now'.split()
+stopwords.extend(new_words)
+stoplist = set(stopwords)
 texts = [[word for word in document.lower().split() if word not in stoplist] for document in documents]
 
 # remove words that appear only once
@@ -230,3 +234,116 @@ texts = [[word for word in text if word not in tokens_once] for text in texts]
 
 # store the corpus of words
 dictionary = corpora.Dictionary(texts)
+dictionary.save('raop.dict')
+
+# counts the number of occurences of each distinct word, converts the word to its 
+# integer word id and returns the result as a sparse vector. 
+corpus = [dictionary.doc2bow(text) for text in texts]
+corpora.MmCorpus.serialize('raop.mm', corpus)
+
+'''
+Training the corpus using various models  
+ONLY FIT THE MODEL ONCE BECAUSE TOPICS CHANGE AFTER EVERY RUN!
+Load the saved model file to apply the model to new documents
+'''
+
+# Term Frequency * Inverse Document Frequency, Tf-Idf 
+tfidf = models.TfidfModel(corpus)
+corpus_tfidf = tfidf[corpus]
+tfidf.save('model.tfidf')
+
+# Latent Semantic Indexing, LSI (or sometimes LSA) 
+lsi = models.lsimodel.LsiModel(corpus_tfidf, id2word=dictionary, num_topics=10)
+corpus_lsi = lsi[corpus_tfidf]
+lsi.save('model.lsi')
+
+# Random Projections, RP
+rp = models.rpmodel.RpModel(corpus_tfidf, num_topics=10)
+corpus_rp = rp[corpus_tfidf]
+rp.save('model.rp')
+    
+# Latent Dirichlet Allocation, LDA
+lda = models.ldamodel.LdaModel(corpus, id2word=dictionary, num_topics=10)
+corpus_lda = lda[corpus]
+lda.save('model.lda')
+    
+# Hierarchical Dirichlet Process, HDP
+hdp = models.hdpmodel.HdpModel(corpus, id2word=dictionary)
+corpus_hdp = hdp[corpus]
+hdp.save('model.hdp')
+
+'''
+LOAD THE MODELS BEFORE TRYING TO RUN SIMILARITY QUERIES!
+'''
+
+tfidf = models.TfidfModel.load('model.tfidf')
+lsi = models.LsiModel.load('model.lsi')
+rp = models.RpModel.load('model.rp')
+lda = models.LdaModel.load('model.lda')
+hdp = models.HdpModel.load('model.hdp')
+
+# applying the LSI model to identify topic for each request using
+# similarity queries
+docs = request_text_list[:30]
+lsi_topics = []
+for doc in docs:
+    vec_bow = dictionary.doc2bow(doc.lower().split())
+    vec_lsi = lsi[vec_bow]
+    vec_lsi.sort(key=lambda item: -item[1])
+    lsi_topics.append(vec_lsi[0][0])
+
+for i in lsi.show_topics():
+    print i
+    
+for i in lsi.print_topics():
+    print i
+
+df['lsi_topics'] = pd.Series(lsi_topics)
+
+# applying the RP model to identify topic for each request using
+# similarity queries
+docs = request_text_list[:30]
+rp_topics = []
+for doc in docs:
+    vec_bow = dictionary.doc2bow(doc.lower().split())
+    vec_rp = rp[vec_bow]
+    vec_rp.sort(key=lambda item: -item[1])
+    rp_topics.append(vec_rp[0][0])
+    
+df['rp_topics'] = pd.Series(rp_topics)
+
+# applying the LDA model to identify topic for each request using
+# similarity queries
+docs = request_text_list[:30]
+lda_topics = []
+for doc in docs:
+    vec_bow = dictionary.doc2bow(doc.lower().split())
+    vec_lda = lda[vec_bow]
+    vec_lda.sort(key=lambda item: -item[1])
+    lda_topics.append(vec_lda[0][0])
+    
+for i in lda.show_topics():
+    print i
+
+for i in lda.print_topics():
+    print i
+    
+df['lda_topics'] = pd.Series(lda_topics)
+
+# applying the HDP model to identify topic for each request using
+# similarity queries
+docs = request_text_list[:30]
+hdp_topics = []
+for doc in docs:
+    vec_bow = dictionary.doc2bow(doc.lower().split())
+    vec_hdp = hdp[vec_bow]
+    vec_hdp.sort(key=lambda item: -item[1])
+    hdp_topics.append(vec_hdp[0][0])
+    
+for i in hdp.show_topics():
+    print i
+
+for i in hdp.print_topics():
+    print i
+    
+df['hdp_topics'] = pd.Series(hdp_topics)
