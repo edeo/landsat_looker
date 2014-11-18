@@ -263,7 +263,7 @@ corpus_rp = rp[corpus_tfidf]
 rp.save('model.rp')
     
 # Latent Dirichlet Allocation, LDA
-lda = models.ldamodel.LdaModel(corpus, id2word=dictionary, num_topics=10)
+lda = models.ldamodel.LdaModel(corpus, id2word=dictionary, num_topics=10, passes=5)
 corpus_lda = lda[corpus]
 lda.save('model.lda')
     
@@ -314,7 +314,7 @@ df['rp_topics'] = pd.Series(rp_topics)
 
 # applying the LDA model to identify topic for each request using
 # similarity queries
-docs = request_text_list[:30]
+docs = request_text_list
 lda_topics = []
 for doc in docs:
     vec_bow = dictionary.doc2bow(doc.lower().split())
