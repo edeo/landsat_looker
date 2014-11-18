@@ -58,7 +58,10 @@ df['word_count'] = pd.Series(request_word_count2)
 
 #calculating the lexical diversity of each request (number of unique words divided by total)
 def lexical_diversity(x):
-    return len(set(x)) / len(x) 
+    if len(x) > 0:
+        return len(set(x)) / len(x) 
+    else: 
+        return 0
     
 lex_div = []
 for tokens in request_token_list:
@@ -71,7 +74,7 @@ df['lexical_diversity'] = pd.Series(lex_div2)
 
 #calculate number of long words in each request
 long_words = []
-for tokens in request_token_list:
+for tokens in request_token_list2:
     words = [w for w in tokens if len(w) > 12]
     long_words.append(words)
     
@@ -104,7 +107,7 @@ df['profanity'] = pd.Series(profanity)
 
 #do much of the same as above for title and username
 #creating variables for the request title and turning it from Series to a list
-title = df.request_title[:5]
+title = df.request_title
 title_list = title.tolist()
 
 #tokenizing the list using a normal for-loop
@@ -123,7 +126,7 @@ for tokens in title_token_list:
     title_word_count.append(title_length)
 
 #creating a list of the word count using a list comprehension
-title_word_count2 = [len(tokens) for tokens in title_token_list]
+title_word_count2 = [len(tokens) for tokens in title_token_list2]
 df['title_word_count'] = pd.Series(title_word_count2)
 
 #checking for 'please' and 'love' in the title
