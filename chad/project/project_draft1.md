@@ -88,7 +88,7 @@ Where <randint> represents the number of the randomly chosen file.
 
 * Classification Algorithms 
   * Logistic Regression
-    * Tried Logit and saw some success.
+    * Tried Logit and had some success.
   * Random Forest
     * Have yet to learn about Random Forests, but other contestants in the Kaggle competition have mentioned their successes using Random Forests.
   
