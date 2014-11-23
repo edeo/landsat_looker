@@ -81,19 +81,22 @@ Where <randint> represents the number of the randomly chosen file.
 ## Achievements To Date
 * The code to read the data is written. 
 * Found some code written in R and Python that runs Fast Fourier Transforms on the data. 
+  * On a to do list is better understanding FFTs and the code. 
+  * Also on the to do list is to get some visualizations of the raw and transformed data.
 * Used the FFT transformed data to run logit regression. The first time the logit was run, no features were found to be statistically significant viz a viz their p-values.
  * The problem was the ratio of preictal to interictal files was too small. Changed the ratio up and started seeing some p-values below .05. 
 
 * Classification Algorithms (not all of these will be used in the final report)
   * Logistic Regression
-   * Tried Logit and saw some success.
+    * Tried Logit and saw some success.
   * Random Forest
-   * Have yet to learn about Random Forests, but other contestants in the Kaggle competition have mentioned their successes using Random Forests.
+    * Have yet to learn about Random Forests, but other contestants in the Kaggle competition have mentioned their successes using Random Forests.
   
   ### Cross Validation Data
 * For Dog_1 there are 480 interictal files and 24 preictal files. About 5% of the files are preictal and 95% interictal. With that in mind, these are the different options available for CV:
-   * Create a process that randomly selects 19 interictal files and 1 preictal file, and do this 5 or so different times, to determine the best model.
+   * Create a process that randomly selects interictal files and preictal file, and do this 5 or so different times, to determine the best model.
    * Use different ratios. 19:1, 10:2, 5:1,...etc.
+   * The ratio matters. Discovered that if the number of interictal files to preictal files is too great, then the logit regression does not produce results. 
 * Use similar process for all dogs and patients.
 
 
