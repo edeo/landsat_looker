@@ -64,7 +64,7 @@ And [subject] is Dog_1 thru Dog_5 or Patient_1 thru Patient_2
 │   │    │   ├── Dog_1_preictal_segment_<randint>.mat
 │   │    │   ├── Dog_1_interictal_segment_<radnint>.mat
 Where <randint> represents the number of the randomly chosen file. 
-
+```
 
 # Data Exploration and Analysis
 
