@@ -86,7 +86,7 @@ Where <randint> represents the number of the randomly chosen file.
 * Used the FFT transformed data to run logit regression. The first time the logit was run, no features were found to be statistically significant viz a viz their p-values.
  * The problem was the ratio of preictal to interictal files was too small. Changed the ratio up and started seeing some p-values below .05. 
 
-* Classification Algorithms (not all of these will be used in the final report)
+* Classification Algorithms 
   * Logistic Regression
     * Tried Logit and saw some success.
   * Random Forest
