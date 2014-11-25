@@ -9,7 +9,6 @@ This dataset includes 5671 requests collected from the Reddit community Random A
 Each JSON entry corresponds to one request (the first and only request by the requester on Random Acts of Pizza). We have removed fields from the test set which would not be available at the time of posting.
 
 ####Data Fields
-Data fields
 "giver_username_if_known": Reddit username of giver if known, i.e. the person satisfying the request ("N/A" otherwise).
 
 "number_of_downvotes_of_request_at_retrieval": Number of downvotes at the time the request was collected.
@@ -75,6 +74,8 @@ Data fields
 "unix_timestamp_of_request_utc": Unit timestamp of request in UTC.
 
 ###Description of any pre-processing steps you took
+The full script is saved as "raop_script.py" in my project folder.
+
 I read the JSON data into a Pandas DataFrame and created new features using NLTK for the text and DATETIME for the dates.  I also created categorical variables using regular expressions to search for the presence of profanity or "please" in the request text, a word count of the request, as well as the lexical diversity.
 
 I also used GENSIM to run topic modeling on the request texts.  I fit a Latent Dirichlet Allocation (LDA) model and generated 10 different topics that the requests fall into, and generated dummy variables for each. 
