@@ -1,6 +1,7 @@
 import json
 from pprint import pprint
 import pandas as pd
+from sklearn.cross_validation import train_test_split
 
 # reading in training data to pandas dataframe
 df = pd.read_json('data/train.json')
@@ -17,6 +18,9 @@ df = pd.read_json('data/train.json')
 #    print i
 
 target = df.requester_received_pizza
+requester_received_pizza = df.requester_received_pizza.tolist()
+requester_received_pizza = [1 if i == True else 0 for i in requester_received_pizza]
+df['target'] = pd.Series(requester_received_pizza)
 
 # relevant features
 # textual factors of success
@@ -182,7 +186,6 @@ posts = df.requester_number_of_posts_at_request
 #calculate total upvotes/total votes
 upvotes = df.requester_upvotes_minus_downvotes_at_request
 total_votes = df.requester_upvotes_plus_downvotes_at_request
-df['karma'] = upvotes/total_votes
     
 #features that represent subreddit reputation
 #dummy variable for whether it was the users first post to raop
@@ -266,9 +269,9 @@ Load the saved model file to apply the model to new documents
 # rp.save('model.rp')
     
 # Latent Dirichlet Allocation, LDA
-lda = models.ldamodel.LdaModel(corpus, id2word=dictionary, num_topics=10, passes=5)
+lda = models.ldamodel.LdaModel(corpus, id2word=dictionary, num_topics=10, passes=3)
 corpus_lda = lda[corpus]
-# lda.save('model.lda')
+lda.save('model.lda')
     
 # Hierarchical Dirichlet Process, HDP
 # hdp = models.hdpmodel.HdpModel(corpus, id2word=dictionary)
@@ -351,15 +354,23 @@ df['lda_topics'] = pd.Series(lda_topics)
     
 # df['hdp_topics'] = pd.Series(hdp_topics)
     
-topics
-0 - 
-1 - desperation
-2 - alone
-3 - 
-4 - help
-5 - student
-6 - 
-7 - celebration
-8 - poor
-9 - 
-scattermatrix all the variables
+topics = pd.get_dummies(df['lda_topics'], prefix='topic')
+df = pd.concat([df, topics], axis=1)
+ 
+'''
+Logistic Regression
+'''
+import statsmodels.formula.api as smf
+
+# Split the data into train and test sets
+train, test = train_test_split(df,test_size=0.3, random_state=1)
+
+# Convert them back into dataframes, for convenience
+train = pd.DataFrame(data=train, columns=df.columns)
+test = pd.DataFrame(data=test, columns=df.columns)
+
+pizza = smf.logit('target ~ word_count + day + first_post + has_commented + weekday', data = df).fit()
+pizza.summary()
+
+test['pred'] = pizza.predict(test)
+test['pred_class']= np.where(test['pred'] >= 0.5, 1, 0)
