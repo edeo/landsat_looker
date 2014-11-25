@@ -1,7 +1,6 @@
 import json
 from pprint import pprint
 import pandas as pd
-from sklearn.cross_validation import train_test_split
 
 # reading in training data to pandas dataframe
 df = pd.read_json('data/train.json')
@@ -19,8 +18,8 @@ df = pd.read_json('data/train.json')
 
 target = df.requester_received_pizza
 requester_received_pizza = df.requester_received_pizza.tolist()
-requester_received_pizza = [1 if i == True else 0 for i in requester_received_pizza]
-df['target'] = pd.Series(requester_received_pizza)
+df['target'] = [1 if i == True else 0 for i in requester_received_pizza]
+#df['target'] = pd.Series(requester_received_pizza)
 
 # relevant features
 # textual factors of success
@@ -361,15 +360,16 @@ df = pd.concat([df, topics], axis=1)
 Logistic Regression
 '''
 import statsmodels.formula.api as smf
+from sklearn.cross_validation import train_test_split
 
 # Split the data into train and test sets
-train, test = train_test_split(df,test_size=0.3, random_state=1)
+train, test = train_test_split(df,test_size=0.3)
 
 # Convert them back into dataframes, for convenience
 train = pd.DataFrame(data=train, columns=df.columns)
 test = pd.DataFrame(data=test, columns=df.columns)
 
-pizza = smf.logit('target ~ word_count + day + first_post + has_commented + weekday', data = df).fit()
+pizza = smf.logit('target ~ word_count', data = df).fit()
 pizza.summary()
 
 test['pred'] = pizza.predict(test)
