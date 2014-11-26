@@ -74,7 +74,7 @@ Each JSON entry corresponds to one request (the first and only request by the re
 "unix_timestamp_of_request_utc": Unit timestamp of request in UTC.
 
 ###Description of any pre-processing steps you took
-The full script is saved as "raop_script.py" in my project folder.
+The full script is saved as "raop_code.py" in my project folder.
 
 I read the JSON data into a Pandas DataFrame and created new features using NLTK for the text and DATETIME for the dates.  I also created categorical variables using regular expressions to search for the presence of profanity or "please" in the request text, a word count of the request, as well as the lexical diversity.
 
@@ -84,13 +84,13 @@ I also used GENSIM to run topic modeling on the request texts.  I fit a Latent D
 Requests from accounts that were created 24 hours before the request were less likely to receive pizza.  Longer requests were positively correlated with receiving pizza.
 
 ###How you chose which features to use in your analysis
-I chose word count, account age, weekday post, and whether it was the requester's first post in the subreddit as the features to use to start out, however, I have not been able to successfully fit the model due to Python errors.  I'm currently working to fix that.
+I chose word count, account age, weekday post, and whether it was the requester's first post in the subreddit as the features to use to start out.  Word count, account age, and whether it was the requester's first post all have a statistically significant effect on whether the requester received pizza.
 
 ###Details of your modeling process, including how you selected your models and validated them
-The plan is to fit the data to a logit model because it will generate a probability of a requester receiving pizza.
+I fit the data to a logit model and classified the request as 1 if the probability of receiving pizza was greater than or equal to .5, and 0 if it was less than .5.  
 
 ###Your challenges and successes
-I am currently running into errors while trying to fit the data to a smf.logit() model.
+The model accurately classified 76% of the requests.  While the specificity was 99%, the sensitivity was only .04%.  In other words, the model is an accurate predictor of requests that didn't receive pizza, but a terrible at predicting those who actually did.  This is likely because of a class imbalance, i.e., the majority of requests do not result in receiving pizza.
 
 ###Conclusions and key learnings
-Pending.
+This is a bad model.
