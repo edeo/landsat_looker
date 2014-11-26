@@ -102,7 +102,7 @@ train = forwards_df[msk]
 test = forwards_df[~msk]
 
 # Run a linear regression on the train test
-f1_model = smf.ols(formula='event_total ~ selected_by + form + value_season + ea_index', data=forwards_df).fit()
+f1_model = smf.ols(formula='event_total ~ selected_by + form + value_season + ea_index', data=train).fit()
 f1_model.summary()
 
 # Create predictions using the train model on the test set
