@@ -26,6 +26,8 @@ This code creates the following plots:
  
 ![Expanded Start/Stop](https://github.com/cleonard1261/DAT3-students/blob/master/chad/project/expanded_start_stop.png "Big Start/Stop") 
 
+  * Press "Start":
+
 ![Enter filename](https://github.com/cleonard1261/DAT3-students/blob/master/chad/project/get_file.png "filename") 
  
    * Enter "Dog_1_interictal_segment_0001.mat" in the text box and press 'OK'.
