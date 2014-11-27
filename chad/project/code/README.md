@@ -20,4 +20,8 @@ This code creates the following plots:
 3. Execute the script.
 4. Follow the popup commands.
    * A Start/Stop popup should appear. On Mack running through Spyder, it appears as another Spyder Icon on the Object Bar at the bottom of the screen. 
- ![Start/Stop Button](https://github.com/cleonard1261/DAT3-students/blob/master/chad/project/StartStopScreenShot.png "Start/Stop") 
+
+![Start/Stop Button](https://github.com/cleonard1261/DAT3-students/blob/master/chad/project/StartStopScreenShot.png "Start/Stop") 
+   * Expand the Start/Stop button as such:
+ 
+ ![Expanded Start/Stop](https://github.com/cleonard1261/DAT3-students/blob/master/chad/project/expanded_start_stop.png "Big Start/Stop") 
