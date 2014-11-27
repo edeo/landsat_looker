@@ -29,3 +29,5 @@ This code creates the following plots:
 ![Enter filename](https://github.com/cleonard1261/DAT3-students/blob/master/chad/project/get_file.png "filename") 
  
    * Enter "Dog_1_interictal_segment_0001.mat" in the text box and press 'OK'.
+
+This should create the Raw and FFT plot above.
