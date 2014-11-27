@@ -30,17 +30,18 @@ import pyqtgraph as pg
 import objgraph
 
 class FileHandler(object):
-  DATA_DIR = '/Users/chadleonard/Repos/DAT3_project/data/'
+  PATH = '/Users/chadleonard/Repos/DAT3/DAT3_students/DAT3-students/chad/project/'
+  DATA_DIR = PATH + 'data/Dog_1/crossval_dir/cv_0/'
   if not os.path.exists(DATA_DIR):
     DATA_DIR = None
     print "Configure the data directory to match local directory structure"
 
   def __init__(self):
-    self.file_in = 'Dog_1/crossval_dir/cv_5/Dog_1_preictal_segment_0001.mat' 
+    self.file_in = '../data/Dog_1/crossval_dir/cv_0/Dog_1_preictal_segment_0001.mat' 
 
   def get_data(self):
     # Reads data in from .mat file. File name is passed in to the dialog box.
-    self.file_in = "_".join(self.file_in.split("_")[0:2]) + "/" + self.file_in
+    #self.file_in = "_".join(self.file_in.split("_")[0:2]) + "/" + self.file_in
     print "this is self.file_in", self.file_in
     with open(self.DATA_DIR + self.file_in) as f:
       mat = scipy.io.loadmat(f)
