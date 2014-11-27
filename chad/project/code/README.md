@@ -3,7 +3,7 @@
 
 ## explore_test.py
 This code creates the following plots:
-[Raw and FFTW Plot](https://github.com/cleonard1261/DAT3-students/blob/master/chad/project/RawAndFFTWPlot.png "Raw and FFTW Plot") 
+![Raw and FFTW Plot](https://github.com/cleonard1261/DAT3-students/blob/master/chad/project/RawAndFFTWPlot.png "Raw and FFTW Plot") 
 
 1. Install the following Python Packages
   * [pyFFTW](https://github.com/hgomersall/pyFFTW) and follow the install instructions.
