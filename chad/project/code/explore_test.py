@@ -30,14 +30,14 @@ import pyqtgraph as pg
 import objgraph
 
 class FileHandler(object):
-  PATH = '/Users/chadleonard/Repos/DAT3/DAT3_students/DAT3-students/chad/project/'
-  DATA_DIR = PATH + 'data/Dog_1/crossval_dir/cv_0/'
+  DAT3_STUDENTS = '/Users/chadleonard/Repos/DAT3/DAT3_students/DAT3-students/'
+  DATA_DIR = DAT3_STUDENTS + 'chad/project/data/Dog_1/crossval_dir/cv_0/'
   if not os.path.exists(DATA_DIR):
     DATA_DIR = None
     print "Configure the data directory to match local directory structure"
 
   def __init__(self):
-    self.file_in = '../data/Dog_1/crossval_dir/cv_0/Dog_1_preictal_segment_0001.mat' 
+    self.file_in = '../data/Dog_1/crossval_dir/cv_0/Dog_1_interictal_segment_0001.mat' 
 
   def get_data(self):
     # Reads data in from .mat file. File name is passed in to the dialog box.
