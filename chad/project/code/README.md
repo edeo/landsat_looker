@@ -22,6 +22,10 @@ This code creates the following plots:
    * A Start/Stop popup should appear. On Mack running through Spyder, it appears as another Spyder Icon on the Object Bar at the bottom of the screen. 
 
 ![Start/Stop Button](https://github.com/cleonard1261/DAT3-students/blob/master/chad/project/StartStopScreenShot.png "Start/Stop") 
-   * Expand the Start/Stop button as such:
+   * Expand the Start/Stop button like so:
  
- ![Expanded Start/Stop](https://github.com/cleonard1261/DAT3-students/blob/master/chad/project/expanded_start_stop.png "Big Start/Stop") 
+![Expanded Start/Stop](https://github.com/cleonard1261/DAT3-students/blob/master/chad/project/expanded_start_stop.png "Big Start/Stop") 
+
+![Enter filename](https://github.com/cleonard1261/DAT3-students/blob/master/chad/project/get_file.png "filename") 
+ 
+   * Enter "Dog_1_interictal_segment_0001.mat" in the text box and press 'OK'.
