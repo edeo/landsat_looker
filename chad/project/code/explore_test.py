@@ -1,8 +1,7 @@
 ##########################################################################
 # explore.py
 # script to explore matlab siezure data
-# original script from:
-# https://github.com/kevinjos/kaggle-aes-seizure-prediction
+#
 #
 # Author:   Chad Leonard
 # Created:  November 22, 2014
