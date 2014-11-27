@@ -31,3 +31,7 @@ This code creates the following plots:
    * Enter "Dog_1_interictal_segment_0001.mat" in the text box and press 'OK'.
 
 This should create the Raw and FFT plots above.
+
+If you want to view the same plots for multiple files, press "Start" again and add in the other file name.
+
+![Plot of Mutliple files](https://github.com/cleonard1261/DAT3-students/blob/master/chad/project/multi_file.png "multi filenames") 
