@@ -19,7 +19,7 @@ This code creates the following plots:
 
 3. Execute the script.
 4. Follow the popup commands.
-   * A Start/Stop popup should appear. On Mack running through Spyder, it appears as another Spyder Icon on the Object Bar at the bottom of the screen. 
+   * A Start/Stop popup should appear. On Mac OS running through Spyder, it appears as another Spyder Icon on the Object Bar at the bottom of the screen. Not sure what'll happen on Windows.
 
 ![Start/Stop Button](https://github.com/cleonard1261/DAT3-students/blob/master/chad/project/StartStopScreenShot.png "Start/Stop") 
    * Expand the Start/Stop button like so:
@@ -30,4 +30,4 @@ This code creates the following plots:
  
    * Enter "Dog_1_interictal_segment_0001.mat" in the text box and press 'OK'.
 
-This should create the Raw and FFT plot above.
+This should create the Raw and FFT plots above.
