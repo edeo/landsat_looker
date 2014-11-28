@@ -114,7 +114,7 @@ if __name__ == "__main__":
 	get_predictions = False
 	est_cols = ['temp','hum','workingday','rush_hr_ind','new_weathersit']
 	if get_predictions == True:
-		result = prediction(bike_hour_dat, est_cols, new_est_m)
+		result = predictions(bike_hour_dat, est_cols, model4)
 
 	print "Model 1: Hours data with multicollinearity"
 	print model1.summary()
@@ -133,13 +133,6 @@ if __name__ == "__main__":
 	print "Rsquared for Model 2", model2.rsquared
 	print "Rsquared for Model 3", model3.rsquared
 	print "Rsquared for Model 4", model4.rsquared
-
-
-
-
-
-
-
 
 
 

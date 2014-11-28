@@ -14,7 +14,7 @@ This code creates the following plots:
     * pip install objgraph
     * sudo easy_install objgraph
   
-2. Change the DAT3_STUDENTS variable to point to you DAT3-STUDENTS directory
+2. Change the DAT3_STUDENTS variable to point to your DAT3-STUDENTS directory
   * DAT3_STUDENTS = '/Users/chadleonard/Repos/DAT3/DAT3_students/DAT3-students/'
 
 3. Execute the script.
