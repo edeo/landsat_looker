@@ -1,8 +1,7 @@
 ##########################################################################
 # explore.py
 # script to explore matlab siezure data
-# original script from:
-# https://github.com/kevinjos/kaggle-aes-seizure-prediction
+#
 #
 # Author:   Chad Leonard
 # Created:  November 22, 2014
@@ -30,17 +29,18 @@ import pyqtgraph as pg
 import objgraph
 
 class FileHandler(object):
-  DATA_DIR = '/Users/chadleonard/Repos/DAT3_project/data/'
+  DAT3_STUDENTS = '/Users/chadleonard/Repos/DAT3/DAT3_students/DAT3-students/'
+  DATA_DIR = DAT3_STUDENTS + 'chad/project/data/Dog_1/crossval_dir/cv_0/'
   if not os.path.exists(DATA_DIR):
     DATA_DIR = None
     print "Configure the data directory to match local directory structure"
 
   def __init__(self):
-    self.file_in = 'Dog_1/crossval_dir/cv_5/Dog_1_preictal_segment_0001.mat' 
+    self.file_in = '../data/Dog_1/crossval_dir/cv_0/Dog_1_interictal_segment_0001.mat' 
 
   def get_data(self):
     # Reads data in from .mat file. File name is passed in to the dialog box.
-    self.file_in = "_".join(self.file_in.split("_")[0:2]) + "/" + self.file_in
+    #self.file_in = "_".join(self.file_in.split("_")[0:2]) + "/" + self.file_in
     print "this is self.file_in", self.file_in
     with open(self.DATA_DIR + self.file_in) as f:
       mat = scipy.io.loadmat(f)
@@ -79,10 +79,12 @@ class Cine(object):
       i = str(i)
       setattr(self, 'rawplot_' + i, pg.PlotWidget())
       # creates the 'rawplot_0' thru 'rawplot_15' which are pg.PlotWidget() object
-      getattr(self, 'rawplot_' + i).setRange(yRange=(1000, -1000))
+      #getattr(self, 'rawplot_' + i).setRange(yRange=(1000, -1000))
+      getattr(self, 'rawplot_' + i).setRange(yRange=(200, -200))
       # calls pg.PlotWidget().setRange ==> setRange sets the visible range of the ViewBox.
       setattr(self, 'fftplot_' + i, pg.PlotWidget())
-      getattr(self, 'fftplot_' + i).setRange(yRange=(0, 170))
+      #getattr(self, 'fftplot_' + i).setRange(yRange=(0, 170))
+      getattr(self, 'fftplot_' + i).setRange(yRange=(40, 120))
       self.layout.addWidget(getattr(self, 'rawplot_' + i))
       # Adds the given widget to the cell grid at row, column. The top-left position is (0, 0) by default.
       # in the output this is the first rawplot.. each additionaly rawplot is added below this
@@ -132,6 +134,7 @@ class Cine(object):
     fft_start = fft_stop - self.fft_size
 
     bins = [i for i in xrange(self.fft_size/2)]
+    #print len(bins)
     # bin is a list of integers from 0 to 2499
     x_time = deque([0], fft_stop)
     y_val = [deque([0], fft_stop) for i in range(num_channels)]
@@ -150,8 +153,13 @@ class Cine(object):
         for i in range(1):
           #print 'fftplot_' + str(i)
           outputa = self.do_fft(np.array(list(islice(y_val[i], fft_start, fft_stop)), dtype=complex))
+          #print len(outputa)
           # run FFTW against time intervals 5000 to 10000 for each channel.
-          getattr(self, 'fftplot_' + str(i)).plot(bins[:200], outputa[0:200], clear=True)
+          #getattr(self, 'fftplot_' + str(i)).plot(bins[:200], outputa[0:200], clear=True)
+          getattr(self, 'fftplot_' + str(i)).plot(bins, outputa[0:], clear=True)
+          #print type(getattr(self, 'fftplot_' + str(i))
+          # <pyqtgraph.widgets.PlotWidget.PlotWidget object at 0x116f935a8>
+          #print [x/5000.0 for x in x_time]
           getattr(self, 'rawplot_' + str(i)).plot([x/5000.0 for x in x_time], y_val[i], clear=True)
           #self.app.processEvents()
         self.app.processEvents()
