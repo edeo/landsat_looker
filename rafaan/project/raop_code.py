@@ -80,6 +80,7 @@ throwaway = [1 if re.search('throwaway', i) else 0 for i in username]
 df['throwaway'] = pd.Series(throwaway)
 
 #account age
+age = df.requester_account_age_in_days_at_request
 df['day'] = [1 if i <= 1 else 0 for i in age]
 df['month'] = [1 if i > 1 and i <= 30 else 0 for i in age]
 df['year'] = [1 if i > 30 and i <= 365 else 0 for i in age]
@@ -239,3 +240,14 @@ plt.figure()
 plt.plot(fpr, tpr)
 plt.xlabel('False Positive Rate')
 plt.ylabel('True Positive Rate')
+
+# Predicting the test set provided by Kaggle 
+# Change first line of code to "df = pd.read_json('data/test.json')" and re-run everything
+# before fitting the model
+df['pred'] = pizza.predict(df)
+df['requester_received_pizza']= np.where(df['pred'] >= 0.5, 1, 0)
+
+# Write to csv for submission
+my_cols = ['request_id', 'requester_received_pizza']
+df[my_cols]
+df[my_cols].to_csv('kaggle_raop.csv', index=False)
