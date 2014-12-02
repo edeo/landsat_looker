@@ -4,7 +4,8 @@ Created on Thu Nov 20 15:20:41 2014
 
 @author: ed
 """
-
+# here is the link to the nyc health inspection data:
+#https://nycopendata.socrata.com/Health/DOHMH-New-York-City-Restaurant-Inspection-Results/xx67-kt59?
 #my project
 # cleaning and exploring
 # my first idea was to get all the nyc wage and hour data together, and then
