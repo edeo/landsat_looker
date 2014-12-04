@@ -3,7 +3,9 @@ DAT3
 11/25/2014
 
 
-Problem statement and hypothesis
+##Problem statement and hypothesis
+
+
 How can we choose what companies we investigate in a better way to increase the probability of chosing companies that have minium wage and 
 overtime violations? Can we use health inspection data to predict Fair Labor Standards Act ( the law that regulates minumum wage and overtime pay)
 violations?
@@ -11,7 +13,19 @@ violations?
 NYC has a data set of over 500,000 rows on the restaurantes in the city. I am hoping to use features from that 
 data set to predict minimum wage and overtime violations.
 
+Specifically, as the score that restuarantes and other food establishments get from the NYC dept of Health increases, does the probability that the business also violate any Wage and Hour law also increase? 
+
+If so, are there specific types of violations of the health code that also signal a higher probability of wage hour (WHD) violations?
+
+
+
 Description of your data set and how it was obtained
+http://ogesdw.dol.gov/views/data_summary.php
+whd_whisard - 
+
+http://fivethirtyeight.com/features/how-data-made-me-a-believer-in-new-york-citys-restaurant-grades/
+
+
 I used two tables: nycwagefull.csv and nyc.csv.
 nycwagefull.csv is a row for every wage and hour investigation that has happened in the state of new york since 2008.
 nyc.csv is the health inspection data for health inspecitons in reasturantes in NYC. 
