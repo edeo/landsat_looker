@@ -3,7 +3,8 @@ DAT3
 11/25/2014
 
 
-Problem statement and hypothesis
+#Problem statement and hypothesis
+
 How can we choose what companies we investigate in a better way to increase the probability of chosing companies that have minium wage and 
 overtime violations? Can we use health inspection data to predict Fair Labor Standards Act ( the law that regulates minumum wage and overtime pay)
 violations?
