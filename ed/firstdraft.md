@@ -3,7 +3,7 @@ DAT3
 11/25/2014
 
 
-#Problem statement and hypothesis
+##Problem statement and hypothesis
 
 How can we choose what companies we investigate in a better way to increase the probability of chosing companies that have minium wage and 
 overtime violations? Can we use health inspection data to predict Fair Labor Standards Act ( the law that regulates minumum wage and overtime pay)
@@ -12,7 +12,9 @@ violations?
 NYC has a data set of over 500,000 rows on the restaurantes in the city. I am hoping to use features from that 
 data set to predict minimum wage and overtime violations.
 
-Description of your data set and how it was obtained
+###Description of your data set and how it was obtained:
+
+
 I used two tables: nycwagefull.csv and nyc.csv.
 nycwagefull.csv is a row for every wage and hour investigation that has happened in the state of new york since 2008.
 nyc.csv is the health inspection data for health inspecitons in reasturantes in NYC. 
