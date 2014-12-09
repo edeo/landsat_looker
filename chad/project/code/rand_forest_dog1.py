@@ -62,5 +62,20 @@ if __name__ == '__main__':
     print probs
 #    print y_test
 #    print X_test
+    
+    list_estimators = list(xrange(1, 30, 2)) + list(xrange(30, 101, 10))
+    param_grid = dict(n_estimators=list_estimators)
+    grid = GridSearchCV(rf, param_grid, cv=5, scoring='roc_auc')
+    grid.fit(df[X_cols], df['ictal_ind'])
+    
+    # Plot the results of the grid search
+    grid_mean_scores = [result[1] for result in grid.grid_scores_]
+    plt.xlim([0,100])
+    plt.scatter(list_estimators, grid_mean_scores, s=40)
+    plt.grid(True)
+    plt.title('Tuning Random Forests for Dog 1')
+    plt.ylabel('AUC for 5-fold CV')
+    plt.xlabel('Number of Trees')
+
 
 
