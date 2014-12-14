@@ -47,8 +47,11 @@ NOTE: where n goes from 0 to N  ==> N is the total number of data segments
   * Each file has 239766 records. That's 10 minutes worth of measurments taken approx. every .002 seconds. There are 399 measurements taken every second.
 * The data has 16 channels (columns) that will be the feature list to choose from. The channels are the electrodes that produce the measurements.
  
-## The Methodology
-* Previously, the plan was to load 5 tables in a Postgres DB. Because of the sheer size of the data, that task is taking too much time. In order to do it quickly, csv files needed to be created anyhow, so only csv files will be created from the .mat files for now.
+## The Methodology  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The data is stored in matlab .mat files. The data represents iEEG measurements, in Hz, of the subjects across 16 electrodes on the subject's body and cranium. The data needs to be transformed in order to make it of any use. Research identified that using a Fast Fourier Tranformation was probably the best way to manipulate the data. Some additional research found a script written in R that did the FFT, then took the absolute values of the FFT and averaged them across channels. But the average was not taken across the entire channel. The code only used the first 7200 records of the file and then took chunks of 300 measurements at a time. This created 24 versions of each channel. The entire file was then condensed down to one record. There were 16 channels coming in, but there were 16 X 24 = 384 channels going out. The R script was also designed to run in parallel, which made it faster than what could be reproduced in Python. After numerous attempts, I was unable to migrate the code to Python, so the R script was used with some minor modifications to it. 
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Each file was either a preictal or interictal file. All of the files were to be condensed down to one record each and put into a single file for that subject. An indicator variable (ictal_ind) was created to signify whether the file/record was interictal or preictal. This would be used as the response variable for the logistic regression and Random Forest algorithms.
+ 
 * An ictal_ind flag has been added to each record where ictal_ind = 1 if a record comes from a preictal file else 0.
 * A record represents one time interval for each of the 16 channels. There are 239766 time intervals.
 * The following three formats for the data will be used to determine which more accurately predicts whether the data comes from a preictal or interictal data set.
