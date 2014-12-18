@@ -29,7 +29,7 @@ import pyqtgraph as pg
 import objgraph
 
 class FileHandler(object):
-  DAT3_STUDENTS = '/Users/chadleonard/Repos/DAT3/DAT3_students/DAT3-students/'
+  DAT3_STUDENTS = '/Users/lindaxie/desktop/DAT3-students/'
   DATA_DIR = DAT3_STUDENTS + 'chad/project/data/Dog_1/crossval_dir/cv_0/'
   if not os.path.exists(DATA_DIR):
     DATA_DIR = None
