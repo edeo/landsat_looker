@@ -80,21 +80,6 @@ outbound2['originatingLat'] = 38.852083 #airports[airports.iata=="DCA"]["latitud
 outbound2['originatingLong'] = -77.037722
 #plt.scatter(dfDCA.ORIGIN, dfDCA.DEST)
 
-###aggregate the data based on flight number and carrier
-#
-#import matplotlib.cm as cm
-#carrier_oi = ['US','AA','DL','MQ','B6','UA']
-#colors = cm.rainbow(np.linspace(0, 1, 6)) #len(dfDCA_in.CARRIER[dfDCA_in.CARRIER.duplicated()==False])))
-#
-##colors = np.where(dfDCA_in.CARRIER=="AA","r","b")
-#
-##color=next(colors)
-#for i in range(6)[1:6]:
-#    ty = carrier_oi[i]
-#    color = colors[i]
-#    d = dfDCA_in[(dfDCA_in.ARR_DELAY > 0) & (dfDCA_in.CARRIER == ty)]
-#    plt.scatter(x=d.DEP_TIME, y = d.ARR_DELAY, c=color,alpha=.3)
-###map colors to carrier , x is dep time, y is arr delay
 
 ##aggregate flights based on the origin and the carrier (in this dataset all dest are DCA)
 agg_in = dfDCA_in.groupby(["ORIGIN", "CARRIER"])[["ARR_DELAY","DISTANCE","DEP_DELAY","TAXI_OUT","TAXI_IN","AIR_TIME","CANCELLED"]].agg(np.mean)

@@ -5,46 +5,51 @@ import numpy as np
 # file import function
 def file_import(filename, truncateBefore = '1989-12-31'):
     output = pd.read_csv(filename, index_col = 0, parse_dates = True)    
-    output.columns = [filename[:-4]]
+    output.columns = [filename[-13:-4]]
     output.index.names = ['Date']
     output.index = [date+pd.tseries.offsets.MonthBegin(n=-1) if date.day!=1 else date for date in output.index ]
     output = output.truncate(truncateBefore)
     return output
 
 # get target files: read in the yields
-yield_02year = file_import('yield_02y.csv')
-yield_03year = file_import('yield_03y.csv')
-yield_05year = file_import('yield_05y.csv')
-yield_07year = file_import('yield_07y.csv')
-yield_10year = file_import('yield_10y.csv')
-yield_20year = file_import('yield_20y.csv')
-yield_30year = file_import('yield_30y.csv')
+yield_02year = file_import('C:/Users/563572/Documents/DataScienceClass/DAT3-students/linda/yield_02y.csv')
+yield_03year = file_import('C:/Users/563572/Documents/DataScienceClass/DAT3-students/linda/yield_03y.csv')
+yield_05year = file_import('C:/Users/563572/Documents/DataScienceClass/DAT3-students/linda/yield_05y.csv')
+yield_07year = file_import('C:/Users/563572/Documents/DataScienceClass/DAT3-students/linda/yield_07y.csv')
+yield_10year = file_import('C:/Users/563572/Documents/DataScienceClass/DAT3-students/linda/yield_10y.csv')
+yield_20year = file_import('C:/Users/563572/Documents/DataScienceClass/DAT3-students/linda/yield_20y.csv')
+yield_30year = file_import('C:/Users/563572/Documents/DataScienceClass/DAT3-students/linda/yield_30y.csv')
 
-yield_04week = file_import('yield_04w.csv')
-yield_13week = file_import('yield_13w.csv')
-yield_26week = file_import('yield_26w.csv')
-yield_52week = file_import('yield_52w.csv')
+yield_04week = file_import('C:/Users/563572/Documents/DataScienceClass/DAT3-students/linda/yield_04w.csv')
+yield_13week = file_import('C:/Users/563572/Documents/DataScienceClass/DAT3-students/linda/yield_13w.csv')
+yield_26week = file_import('C:/Users/563572/Documents/DataScienceClass/DAT3-students/linda/yield_26w.csv')
+yield_52week = file_import('C:/Users/563572/Documents/DataScienceClass/DAT3-students/linda/yield_52w.csv')
 
-deficit = file_import('deficit.csv')
-unemployment = file_import('unemployment.csv')
-debtlimit = file_import('debtlimit.csv')
-outstanding = pd.read_csv('outstanding.csv', index_col = 0, parse_dates = True)
+deficit = file_import('C:/Users/563572/Documents/DataScienceClass/DAT3-students/linda/deficit.csv')
+unemployment = file_import('C:/Users/563572/Documents/DataScienceClass/DAT3-students/linda/unemployment.csv')
+debtlimit = file_import('C:/Users/563572/Documents/DataScienceClass/DAT3-students/linda/debtlimit.csv')
+outstanding = pd.read_csv('C:/Users/563572/Documents/DataScienceClass/DAT3-students/linda/outstanding.csv', index_col = 0, parse_dates = True)
 
 # calculate the year over year inflation for CPI
 # formula = CPI_today/CPI_1_year_ago * 100
-cpi = file_import('CPI.csv','1989-08-31')
+cpi = file_import('C:/Users/563572/Documents/DataScienceClass/DAT3-students/linda/CPI.csv','1989-08-31')
+cpi=cpi.rename(columns = {'linda/CPI':'CPI'})
 cpi.CPI[12:] = (cpi.CPI.values[12:]/cpi.CPI.values[0:len(cpi.CPI.values)-12]-1)*100 #yoy
 cpi = cpi[cpi.index >= '1990-08-31']
 
 # calculate the year over year inflation for GDP
-gdp = file_import('rgdp.csv','1989-06-30')
+gdp = file_import('C:/Users/563572/Documents/DataScienceClass/DAT3-students/linda/rgdp.csv','1989-06-30')
+gdp=gdp.rename(columns = {'inda/rgdp':'rgdp'})
+
 gdp.rgdp[4:] = (gdp.rgdp.values[4:]/gdp.rgdp.values[0:len(gdp.rgdp.values)-4]-1)*100 #yoy
 gdp = gdp[gdp.index >= '1990-06-30']
 
 # combine explanatory variables to form DataFrame
+#learned concat
 raw_data =  pd.concat([cpi,deficit,gdp,unemployment,debtlimit,outstanding['TotalOutstanding']], axis=1)
 raw_data['prox2ceiling'] = raw_data.debtlimit
 # obtain the debt ceiling date index (to calculate # months to debt ceiling later)
+#cool use of map
 nextceiling = [row for row in range(len(raw_data)) if row not in map(list, np.where(raw_data.debtlimit.isnull()))[0]]
 
 # combine response variables
