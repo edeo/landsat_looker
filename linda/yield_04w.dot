@@ -1,0 +1,15 @@
+digraph Tree {
+0 [label="unemployment <= 5.2500\nmse = 2.71357498517\nsamples = 159", shape="box"] ;
+1 [label="unemployment <= 4.8500\nmse = 1.12683509816\nsamples = 41", shape="box"] ;
+0 -> 1 ;
+2 [label="mse = 0.2318\nsamples = 24\nvalue = [ 4.60708333]", shape="box"] ;
+1 -> 2 ;
+3 [label="mse = 0.5344\nsamples = 17\nvalue = [ 2.82647059]", shape="box"] ;
+1 -> 3 ;
+4 [label="deficit <= -470951.5000\nmse = 0.500087252226\nsamples = 118", shape="box"] ;
+0 -> 4 ;
+5 [label="mse = 0.0029\nsamples = 72\nvalue = [ 0.07041667]", shape="box"] ;
+4 -> 5 ;
+6 [label="mse = 0.1762\nsamples = 46\nvalue = [ 1.41434783]", shape="box"] ;
+4 -> 6 ;
+}

@@ -213,7 +213,7 @@ if __name__ == '__main__':
     # variables passed in from the command line to tell how many crossval directories to go to
     # and process the data from.
     print start, end
-    path = '/Users/chadleonard/Repos/DAT3_project/data/'
+    path = '/Users/lindaxie/desktop/DAT3_students/chad/project/data/'
     dg_name = 'Dog_1'
     dog_1 = Patient(dg_name, path)
     # instantiate patient by passing it the patient name, which is also the directory where the data resides, and the path to that 

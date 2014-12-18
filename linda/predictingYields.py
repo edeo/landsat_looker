@@ -122,14 +122,21 @@ ceilingPlot(raw_data,tsyYield['yield_30y'])
 import statsmodels.formula.api as smf
 import statsmodels.api as sm
 
-# pick which yield to use: 4-week
-full_data = pd.concat([tsyYield['yield_04w'],raw_data],axis=1)
+#######IMPORTANT - HERE IS WHERE YOU CAN CHANGE THE RESPONSE VARIABLE######
+yieldType = 'yield_04w'
+yieldType = 'yield_13w'
+yieldType = 'yield_10y'
+yieldType = 'yield_30y'
+####################################
+
+# pick which yield to use
+full_data = pd.concat([tsyYield[yieldType],raw_data],axis=1)
 full_data.columns.values[0] = 'tyield'
 full_data_index = pd.notnull(full_data.tyield)
 full_data = full_data[full_data_index]
 
 # scatter matrix
-cols = ['tyield','CPI','deficit','rgdp','unemployment','TotalOutstanding','prox2ceiling']
+cols = ['tyield','CPI','deficit','rgdp','unemployment','TotalOutstanding','prox2ceiling'] 
 pd.scatter_matrix(full_data[full_data.columns])
 
 # Correlation coefficient matrix
@@ -149,9 +156,87 @@ est.summary()
 # based on previous summary, get rid of variables with p value < 0.05
 
 #predict using model and plot vs actual observations
+plt.figure()
 plt.scatter(full_data.index,est.predict(raw_data[full_data_index]),c='r',alpha=0.75)
 plt.scatter(full_data.index,full_data.tyield)
-plt.title('yield_04w')
-plt.ylabel('Date')
-plt.xlabel('yield')
+plt.title(yieldType)
+plt.xlabel('Date')
+plt.ylabel(yieldType)
+plt.show()
 ###############################################################################
+
+#try regression tree model
+from sklearn.tree import DecisionTreeRegressor
+from sklearn import tree
+from sklearn import grid_search
+#from sklearn.cross_validation import train_test_split
+
+# Create a feature vector
+features = full_data.columns.values[1:]
+
+# check out a simple decision tree first: depth = 2
+clf = DecisionTreeRegressor(max_depth=2,min_samples_leaf=5)
+clf.fit(full_data.values[:,1:], full_data.tyield)
+pred_y = clf.predict(full_data.values[:,1:])
+
+# Create a dot file to visulaize the tree
+fileName = yieldType+'.dot'
+with open(fileName, 'w') as f:
+    f = tree.export_graphviz(clf, out_file=f, feature_names=features, close=True)
+
+# try out depth = 5
+clf_5 = DecisionTreeRegressor(max_depth=5,min_samples_leaf=5)
+clf_5.fit(full_data.values[:,1:], full_data.tyield)
+pred_y_5 = clf_5.predict(full_data.values[:,1:])
+
+#get the most important features from this tree
+clf_5.feature_importances_
+# Create a dot file to visulaize the tree
+fileName2 = yieldType + '_5.dot'
+with open(fileName2, 'w') as f:
+    f = tree.export_graphviz(clf_5, out_file=f, feature_names=features, close=True)
+
+# Now compare the depth of the decision tree
+clf = tree.DecisionTreeClassifier(random_state=5, min_samples_leaf=5)
+depth_range = range(1, 15)
+param_grid = dict(max_depth=depth_range)
+grid = grid_search.GridSearchCV(clf, param_grid, cv=5, scoring='mean_squared_error')
+grid.fit(full_data.values[:,1:], full_data.tyield)
+
+# Check out the scores of the grid search
+grid_mean_scores = [result[1] for result in grid.grid_scores_]
+    #note that this is always negative!!!
+    #greater_is_better ...
+    #Whether score_func is a score function (default), meaning high is good, 
+    #or a loss function, meaning low is good. In the latter case, the scorer 
+    #object will sign-flip the outcome of the score_func.
+
+# Plot the results of the grid search
+plt.figure()
+plt.plot(depth_range, grid_mean_scores)
+plt.hold(True)
+plt.plot(grid.best_params_['max_depth'], grid.best_score_, 'ro', markersize=12, markeredgewidth=1.5,
+         markerfacecolor='None', markeredgecolor='r')
+plt.title("cross validation score (MSE) for regression tree")
+plt.xlabel("depth")
+plt.ylabel('negative MSE')
+plt.grid(True)
+
+# plot a tree that's over fitting
+clf_9 = tree.DecisionTreeClassifier(random_state=9, min_samples_leaf=5)
+clf_9.fit(full_data.values[:,1:], full_data.tyield)
+pred_y_9 = clf_9.predict(full_data.values[:,1:])
+
+# plot the different decision trees based on depth: clearly depth = 5 is the winner
+plt.figure()
+plt.scatter(full_data.index, full_data.tyield, c="k", label="actual yields")
+plt.plot(full_data.index,pred_y,c='r', label="max depth 2",linewidth=1)
+plt.plot(full_data.index,pred_y_5,c='b',label = 'max depth 5',linewidth=2)
+plt.plot(full_data.index,pred_y_9,c='g', label="max depth: 9",linewidth=1)
+plt.xlabel("Date")
+plt.ylabel(yieldType)
+plt.title("Decision Tree Regression")
+plt.legend()
+
+
+
