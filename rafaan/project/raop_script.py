@@ -404,3 +404,49 @@ plt.figure()
 plt.plot(fpr, tpr)
 plt.xlabel('False Positive Rate')
 plt.ylabel('True Positive Rate')
+
+'''
+Random Forests
+'''
+
+import pandas as pd
+import numpy as np
+from sklearn.cross_validation import train_test_split
+from sklearn import metrics
+import matplotlib.pyplot as plt
+from sklearn.ensemble import RandomForestClassifier
+from sklearn import tree
+from sklearn.grid_search import GridSearchCV
+
+# Split the data into train and test sets
+X_cols = ['word_count','requester_account_age_in_days_at_request','first_post','has_commented','weekday','requester_upvotes_minus_downvotes_at_request']
+X_train, X_test, y_train, y_test = train_test_split(df[X_cols], 
+                               df['target'],test_size=0.3, random_state=1)
+
+# Fit a RandomForestClassifier
+rf = RandomForestClassifier(random_state=1)
+rf.fit(X_train, y_train)
+probs = rf.predict_proba(X_test)[:,1]
+metrics.roc_auc_score(y_test, probs)
+
+# Calculate feature importances
+features = X_cols
+imp = pd.DataFrame(rf.feature_importances_, 
+                     index = features)
+imp
+
+# Tune the model
+rf = RandomForestClassifier(random_state=1)
+list_estimators = list(xrange(1, 30, 2)) + list(xrange(30, 101, 10))
+param_grid = dict(n_estimators=list_estimators)
+grid = GridSearchCV(rf, param_grid, cv=5, scoring='roc_auc')
+grid.fit(df[X_cols], df['target'])
+
+# Plot results of tuning
+grid_mean_scores = [result[1] for result in grid.grid_scores_]
+plt.xlim([0,100])
+plt.scatter(list_estimators, grid_mean_scores, s=40)
+plt.grid(True)
+plt.title('Tuning Random Forest Along the Number of Trees')
+plt.ylabel('AUC for 5-fold CV')
+plt.xlabel('Number of Trees')
